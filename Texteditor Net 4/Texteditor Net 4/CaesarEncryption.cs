@@ -6,20 +6,41 @@ using System.Threading.Tasks;
 
 namespace Texteditor.NET
 {
-    public static class CaesarEncryption
+    public class CaesarEncryption : IEncryption
     {
         public const int STANDARD_ROTATION = 13;
         public const int MIN_ROTATION = 1;
         public const int MAX_ROTATION = 25;
         public const int MAX_TEXTLAENGE = 250;
 
-        public static string Entschlüsseln(string input, int rotation)
+        private static void Textlaenge_pruefen(string Text)
         {
-            Textlaenge_pruefen(input);
+            if (Text == null || Text == "")
+            {
+                throw new ArgumentException("Input was empty");
+            }
+            else if (Text.Length > MAX_TEXTLAENGE)
+            {
+                /// Die maximale Länge des Textes hab ich erstmal ausgeschaltet
+
+                //throw new ArgumentException($"Input was to long");
+            }
+        }
+
+        /// <summary>
+        /// Decrypts the given chiffre depending on the first argument reperesenting the rotation
+        /// </summary>
+        /// <param name="chiffre">text chiffre</param>
+        /// <param name="args">first value represents the rotation</param>
+        /// <returns></returns>
+        public string Decrpyt(string chiffre, params int[] args)
+        {
+            Textlaenge_pruefen(chiffre);
+            int rotation = args[0];
 
             StringBuilder Klartext = new StringBuilder();
 
-            foreach (char c in input)
+            foreach (char c in chiffre)
             {
                 if (char.IsLetter(c))
                 {
@@ -45,13 +66,20 @@ namespace Texteditor.NET
             return Klartext.ToString();
         }
 
-        public static string Verschlüsseln(string input, int rotation)
+        /// <summary>
+        /// encrypts the given text depeding on the rotation
+        /// </summary>
+        /// <param name="text">clear text</param>
+        /// <param name="args">first value represents the rotation</param>
+        /// <returns></returns>
+        public string Encrypt(string text, params int[] args)
         {
-            Textlaenge_pruefen(input);
+            Textlaenge_pruefen(text);
+            int rotation = args[0];
 
             StringBuilder Chiffre = new StringBuilder();
 
-            foreach (char c in input)
+            foreach (char c in text)
             {
                 if (char.IsLetter(c))
                 {
@@ -75,18 +103,6 @@ namespace Texteditor.NET
             }
 
             return Chiffre.ToString();
-        }
-
-        private static void Textlaenge_pruefen(string Text)
-        {
-            if (Text == null || Text == "")
-            {
-                throw new ArgumentException("Input was empty", "Text");
-            }
-            else if (Text.Length > MAX_TEXTLAENGE)
-            {
-                throw new ArgumentException($"Input was to long", "Text");
-            }
         }
     }
 }

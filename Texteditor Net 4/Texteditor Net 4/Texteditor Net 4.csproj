@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CaesarEncryption.cs" />
+    <Compile Include="Encrypter.cs" />
     <Compile Include="Ersetzen.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -76,6 +77,7 @@
     <Compile Include="Suchen.Designer.cs">
       <DependentUpon>Suchen.cs</DependentUpon>
     </Compile>
+    <Compile Include="TestAlgorithmus.cs" />
     <EmbeddedResource Include="Ersetzen.resx">
       <DependentUpon>Ersetzen.cs</DependentUpon>
     </EmbeddedResource>

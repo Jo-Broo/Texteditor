@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Printing;
 using System.IO;
@@ -19,13 +20,25 @@ namespace Texteditor.NET
 
         private int Seitenzähler = 0;
 
-        Suchen Suchen;
+        //Suchen Suchen;
         Ersetzen Ersetzen;
+        Encrypter encrypter;
+
+        private List<ToolStripMenuItem> EncryptionOptions;
 
         public GUI()
         {
             InitializeComponent();
             Titel();
+
+            this.EncryptionOptions = new List<ToolStripMenuItem>
+            {
+                this.tsmi_Cäsarcode,
+                this.tsmi_Test
+            };
+
+            this.encrypter = new Encrypter();
+            this.tsmi_Cäsarcode.PerformClick();
         }
 
         #region Menü Schaltflächen 
@@ -314,9 +327,16 @@ namespace Texteditor.NET
                     this.tsmi_Uhreit_Datum.PerformClick();
                     break;
                 case Keys.F:
-                    if(e.Control == true)
+                    if(e.Control)
                     {
-                        this.tsmi_Suchen.PerformClick();
+                        //this.tsmi_Suchen.PerformClick();
+                        this.tsmi_Ersetzen.PerformClick();
+                    }
+                    break;
+                case Keys.H:
+                    if (e.Control)
+                    {
+                        this.tsmi_Ersetzen.PerformClick();
                     }
                     break;
                 default:
@@ -377,23 +397,23 @@ namespace Texteditor.NET
 
         private void tsmi_Suchen_Click(object sender, EventArgs e)
         {
-            if(this.Suchen == null)
-            {
-                this.Suchen = new Suchen(this.tb_Editor);
-            }
+            //if(this.Suchen == null)
+            //{
+            //    this.Suchen = new Suchen(this.tb_Editor);
+            //}
 
-            if(this.Suchen != null && this.Suchen.Visible == false)
-            {
-                this.Suchen.Location = new Point(((this.Size.Width / 2) - (this.Suchen.Width / 2)),(this.Height / 2) - (this.Suchen.Height / 2));
-                this.Suchen.Visible = true;
-            }
+            //if(this.Suchen != null && this.Suchen.Visible == false)
+            //{
+            //    this.Suchen.Location = new Point(((this.Size.Width / 2) - (this.Suchen.Width / 2)),(this.Height / 2) - (this.Suchen.Height / 2));
+            //    this.Suchen.Visible = true;
+            //}
         }
 
         private void tsmi_Ersetzen_Click(object sender, EventArgs e)
         {
             if(this.Ersetzen == null)
             {
-                this.Ersetzen = new Ersetzen(this.tb_Editor, this.Get_Wörter(this.tb_Editor.Text));
+                this.Ersetzen = new Ersetzen(this.tb_Editor, this.encrypter, this.Get_Wörter(this.tb_Editor.Text));
             }
             
             if(this.Ersetzen != null && this.Ersetzen.Visible == false)
@@ -401,7 +421,28 @@ namespace Texteditor.NET
                 this.Ersetzen.Location = new Point(((this.Size.Width / 2) - (this.Ersetzen.Width / 2)), (this.Height / 2) - (this.Ersetzen.Height / 2));
                 this.Ersetzen.Visible = true;
             }
-            
+        }
+
+        private void ResetEncryptionSelection()
+        {
+            foreach (var option in this.EncryptionOptions)
+            {
+                option.Checked = false;
+            }
+        }
+
+        private void cäsarcodeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.encrypter.SetStrategy(new CaesarEncryption());
+            this.ResetEncryptionSelection();
+            this.tsmi_Cäsarcode.Checked = true;
+        }
+
+        private void testToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.encrypter.SetStrategy(new TestAlgorithmus());
+            this.ResetEncryptionSelection();
+            this.tsmi_Test.Checked = true;
         }
 
         #endregion
@@ -455,8 +496,7 @@ namespace Texteditor.NET
             
         }
 
-        #endregion
 
-        
+        #endregion
     }
 }

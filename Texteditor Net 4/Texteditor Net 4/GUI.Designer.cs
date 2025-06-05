@@ -72,6 +72,9 @@
             this.ppd_Druckvorschau = new System.Windows.Forms.PrintPreviewDialog();
             this.ft_Schriftart = new System.Windows.Forms.FontDialog();
             this.cd_Farbe = new System.Windows.Forms.ColorDialog();
+            this.tsmi_Verschlüsselung = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmi_Cäsarcode = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmi_Test = new System.Windows.Forms.ToolStripMenuItem();
             this.ts_Hauptmenü.SuspendLayout();
             this.ts_Symbolleiste.SuspendLayout();
             this.ss_Statusleiste.SuspendLayout();
@@ -87,8 +90,7 @@
             this.tsmi_Format});
             this.ts_Hauptmenü.Location = new System.Drawing.Point(0, 0);
             this.ts_Hauptmenü.Name = "ts_Hauptmenü";
-            this.ts_Hauptmenü.Padding = new System.Windows.Forms.Padding(4, 1, 0, 1);
-            this.ts_Hauptmenü.Size = new System.Drawing.Size(653, 24);
+            this.ts_Hauptmenü.Size = new System.Drawing.Size(980, 33);
             this.ts_Hauptmenü.TabIndex = 0;
             this.ts_Hauptmenü.Text = "Hauptmenü";
             // 
@@ -106,70 +108,70 @@
             this.toolStripMenuItem3,
             this.tsmi_Beenden});
             this.tsmi_Datei.Name = "tsmi_Datei";
-            this.tsmi_Datei.Size = new System.Drawing.Size(46, 22);
+            this.tsmi_Datei.Size = new System.Drawing.Size(69, 29);
             this.tsmi_Datei.Text = "&Datei";
             // 
             // tsmi_Neu
             // 
             this.tsmi_Neu.Name = "tsmi_Neu";
-            this.tsmi_Neu.Size = new System.Drawing.Size(166, 22);
+            this.tsmi_Neu.Size = new System.Drawing.Size(249, 34);
             this.tsmi_Neu.Text = "&Neu";
             this.tsmi_Neu.Click += new System.EventHandler(this.CreateNewDocument);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(163, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(246, 6);
             // 
             // tsmi_Öffnen
             // 
             this.tsmi_Öffnen.Name = "tsmi_Öffnen";
-            this.tsmi_Öffnen.Size = new System.Drawing.Size(166, 22);
+            this.tsmi_Öffnen.Size = new System.Drawing.Size(249, 34);
             this.tsmi_Öffnen.Text = "&Öffnen...";
             this.tsmi_Öffnen.Click += new System.EventHandler(this.OpenDocument);
             // 
             // tsmi_Speichern
             // 
             this.tsmi_Speichern.Name = "tsmi_Speichern";
-            this.tsmi_Speichern.Size = new System.Drawing.Size(166, 22);
+            this.tsmi_Speichern.Size = new System.Drawing.Size(249, 34);
             this.tsmi_Speichern.Text = "&Speichern";
             this.tsmi_Speichern.Click += new System.EventHandler(this.SaveDocument);
             // 
             // tsmi_Speichern_unter
             // 
             this.tsmi_Speichern_unter.Name = "tsmi_Speichern_unter";
-            this.tsmi_Speichern_unter.Size = new System.Drawing.Size(166, 22);
+            this.tsmi_Speichern_unter.Size = new System.Drawing.Size(249, 34);
             this.tsmi_Speichern_unter.Text = "Speichern &unter...";
             this.tsmi_Speichern_unter.Click += new System.EventHandler(this.SaveDocumentAs);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(163, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(246, 6);
             // 
             // tsmi_Seite_einrichten
             // 
             this.tsmi_Seite_einrichten.Name = "tsmi_Seite_einrichten";
-            this.tsmi_Seite_einrichten.Size = new System.Drawing.Size(166, 22);
+            this.tsmi_Seite_einrichten.Size = new System.Drawing.Size(249, 34);
             this.tsmi_Seite_einrichten.Text = "Seite einricht&en...";
             this.tsmi_Seite_einrichten.Click += new System.EventHandler(this.tsmi_Seite_einrichten_Click);
             // 
             // tsmi_Drucken
             // 
             this.tsmi_Drucken.Name = "tsmi_Drucken";
-            this.tsmi_Drucken.Size = new System.Drawing.Size(166, 22);
+            this.tsmi_Drucken.Size = new System.Drawing.Size(249, 34);
             this.tsmi_Drucken.Text = "&Drucken...";
             this.tsmi_Drucken.Click += new System.EventHandler(this.tsmi_Drucken_Click);
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(163, 6);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(246, 6);
             // 
             // tsmi_Beenden
             // 
             this.tsmi_Beenden.Name = "tsmi_Beenden";
-            this.tsmi_Beenden.Size = new System.Drawing.Size(166, 22);
+            this.tsmi_Beenden.Size = new System.Drawing.Size(249, 34);
             this.tsmi_Beenden.Text = "&Beenden";
             this.tsmi_Beenden.Click += new System.EventHandler(this.CloseApplication);
             // 
@@ -178,29 +180,30 @@
             this.tsmi_Bearbeiten.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmi_Uhreit_Datum,
             this.tsmi_Suchen,
-            this.tsmi_Ersetzen});
+            this.tsmi_Ersetzen,
+            this.tsmi_Verschlüsselung});
             this.tsmi_Bearbeiten.Name = "tsmi_Bearbeiten";
-            this.tsmi_Bearbeiten.Size = new System.Drawing.Size(75, 22);
+            this.tsmi_Bearbeiten.Size = new System.Drawing.Size(111, 29);
             this.tsmi_Bearbeiten.Text = "Bearbeiten";
             // 
             // tsmi_Uhreit_Datum
             // 
             this.tsmi_Uhreit_Datum.Name = "tsmi_Uhreit_Datum";
-            this.tsmi_Uhreit_Datum.Size = new System.Drawing.Size(158, 22);
+            this.tsmi_Uhreit_Datum.Size = new System.Drawing.Size(270, 34);
             this.tsmi_Uhreit_Datum.Text = "&Uhrzeit / Datum";
             this.tsmi_Uhreit_Datum.Click += new System.EventHandler(this.uhrzeitToolStripMenuItem_Click);
             // 
             // tsmi_Suchen
             // 
             this.tsmi_Suchen.Name = "tsmi_Suchen";
-            this.tsmi_Suchen.Size = new System.Drawing.Size(158, 22);
+            this.tsmi_Suchen.Size = new System.Drawing.Size(270, 34);
             this.tsmi_Suchen.Text = "Suchen";
             this.tsmi_Suchen.Click += new System.EventHandler(this.tsmi_Suchen_Click);
             // 
             // tsmi_Ersetzen
             // 
             this.tsmi_Ersetzen.Name = "tsmi_Ersetzen";
-            this.tsmi_Ersetzen.Size = new System.Drawing.Size(158, 22);
+            this.tsmi_Ersetzen.Size = new System.Drawing.Size(270, 34);
             this.tsmi_Ersetzen.Text = "Ersetzen";
             this.tsmi_Ersetzen.Click += new System.EventHandler(this.tsmi_Ersetzen_Click);
             // 
@@ -213,7 +216,7 @@
             this.tsmi_Hintergrundfarbe,
             this.tsmi_Schriftfarbe});
             this.tsmi_Format.Name = "tsmi_Format";
-            this.tsmi_Format.Size = new System.Drawing.Size(57, 22);
+            this.tsmi_Format.Size = new System.Drawing.Size(85, 29);
             this.tsmi_Format.Text = "&Format";
             // 
             // tsmi_Zeilenumbruch
@@ -222,33 +225,33 @@
             this.tsmi_Zeilenumbruch.CheckOnClick = true;
             this.tsmi_Zeilenumbruch.CheckState = System.Windows.Forms.CheckState.Checked;
             this.tsmi_Zeilenumbruch.Name = "tsmi_Zeilenumbruch";
-            this.tsmi_Zeilenumbruch.Size = new System.Drawing.Size(175, 22);
+            this.tsmi_Zeilenumbruch.Size = new System.Drawing.Size(263, 34);
             this.tsmi_Zeilenumbruch.Text = "Zeilen&umbruch";
             this.tsmi_Zeilenumbruch.Click += new System.EventHandler(this.SwitchWordwrap);
             // 
             // tsmi_Schriftart
             // 
             this.tsmi_Schriftart.Name = "tsmi_Schriftart";
-            this.tsmi_Schriftart.Size = new System.Drawing.Size(175, 22);
+            this.tsmi_Schriftart.Size = new System.Drawing.Size(263, 34);
             this.tsmi_Schriftart.Text = "&Schriftart...";
             this.tsmi_Schriftart.Click += new System.EventHandler(this.ChangeFont);
             // 
             // toolStripMenuItem4
             // 
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(172, 6);
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(260, 6);
             // 
             // tsmi_Hintergrundfarbe
             // 
             this.tsmi_Hintergrundfarbe.Name = "tsmi_Hintergrundfarbe";
-            this.tsmi_Hintergrundfarbe.Size = new System.Drawing.Size(175, 22);
+            this.tsmi_Hintergrundfarbe.Size = new System.Drawing.Size(263, 34);
             this.tsmi_Hintergrundfarbe.Text = "&Hintergrundfarbe...";
             this.tsmi_Hintergrundfarbe.Click += new System.EventHandler(this.ChangeBackgroundColor);
             // 
             // tsmi_Schriftfarbe
             // 
             this.tsmi_Schriftfarbe.Name = "tsmi_Schriftfarbe";
-            this.tsmi_Schriftfarbe.Size = new System.Drawing.Size(175, 22);
+            this.tsmi_Schriftfarbe.Size = new System.Drawing.Size(263, 34);
             this.tsmi_Schriftfarbe.Text = "Schrift&farbe...";
             this.tsmi_Schriftfarbe.Click += new System.EventHandler(this.ChangeForegroundColor);
             // 
@@ -264,10 +267,10 @@
             this.tsb_Druckvorschau,
             this.toolStripSeparator,
             this.tsb_Info});
-            this.ts_Symbolleiste.Location = new System.Drawing.Point(0, 24);
+            this.ts_Symbolleiste.Location = new System.Drawing.Point(0, 33);
             this.ts_Symbolleiste.Name = "ts_Symbolleiste";
-            this.ts_Symbolleiste.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
-            this.ts_Symbolleiste.Size = new System.Drawing.Size(653, 31);
+            this.ts_Symbolleiste.Padding = new System.Windows.Forms.Padding(0, 0, 3, 0);
+            this.ts_Symbolleiste.Size = new System.Drawing.Size(980, 33);
             this.ts_Symbolleiste.TabIndex = 1;
             this.ts_Symbolleiste.Text = "Symbolleiste";
             // 
@@ -277,7 +280,7 @@
             this.tsb_Neu.Image = ((System.Drawing.Image)(resources.GetObject("tsb_Neu.Image")));
             this.tsb_Neu.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsb_Neu.Name = "tsb_Neu";
-            this.tsb_Neu.Size = new System.Drawing.Size(28, 28);
+            this.tsb_Neu.Size = new System.Drawing.Size(34, 28);
             this.tsb_Neu.Text = "&Neu";
             this.tsb_Neu.Click += new System.EventHandler(this.CreateNewDocument);
             // 
@@ -287,7 +290,7 @@
             this.tsb_Öffnen.Image = ((System.Drawing.Image)(resources.GetObject("tsb_Öffnen.Image")));
             this.tsb_Öffnen.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsb_Öffnen.Name = "tsb_Öffnen";
-            this.tsb_Öffnen.Size = new System.Drawing.Size(28, 28);
+            this.tsb_Öffnen.Size = new System.Drawing.Size(34, 28);
             this.tsb_Öffnen.Text = "Ö&ffnen";
             this.tsb_Öffnen.Click += new System.EventHandler(this.OpenDocument);
             // 
@@ -297,7 +300,7 @@
             this.tsb_Speichern.Image = ((System.Drawing.Image)(resources.GetObject("tsb_Speichern.Image")));
             this.tsb_Speichern.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsb_Speichern.Name = "tsb_Speichern";
-            this.tsb_Speichern.Size = new System.Drawing.Size(28, 28);
+            this.tsb_Speichern.Size = new System.Drawing.Size(34, 28);
             this.tsb_Speichern.Text = "&Speichern";
             this.tsb_Speichern.Click += new System.EventHandler(this.SaveDocument);
             // 
@@ -307,7 +310,7 @@
             this.tsb_Drucken.Image = ((System.Drawing.Image)(resources.GetObject("tsb_Drucken.Image")));
             this.tsb_Drucken.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsb_Drucken.Name = "tsb_Drucken";
-            this.tsb_Drucken.Size = new System.Drawing.Size(28, 28);
+            this.tsb_Drucken.Size = new System.Drawing.Size(34, 28);
             this.tsb_Drucken.Text = "&Drucken";
             this.tsb_Drucken.Click += new System.EventHandler(this.tsmi_Drucken_Click);
             // 
@@ -317,14 +320,14 @@
             this.tsb_Druckvorschau.Image = ((System.Drawing.Image)(resources.GetObject("tsb_Druckvorschau.Image")));
             this.tsb_Druckvorschau.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsb_Druckvorschau.Name = "tsb_Druckvorschau";
-            this.tsb_Druckvorschau.Size = new System.Drawing.Size(28, 28);
+            this.tsb_Druckvorschau.Size = new System.Drawing.Size(34, 28);
             this.tsb_Druckvorschau.Text = "Druckvorschau";
             this.tsb_Druckvorschau.Click += new System.EventHandler(this.tsb_Druckvorschau_Click);
             // 
             // toolStripSeparator
             // 
             this.toolStripSeparator.Name = "toolStripSeparator";
-            this.toolStripSeparator.Size = new System.Drawing.Size(6, 31);
+            this.toolStripSeparator.Size = new System.Drawing.Size(6, 33);
             // 
             // tsb_Info
             // 
@@ -332,7 +335,7 @@
             this.tsb_Info.Image = ((System.Drawing.Image)(resources.GetObject("tsb_Info.Image")));
             this.tsb_Info.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsb_Info.Name = "tsb_Info";
-            this.tsb_Info.Size = new System.Drawing.Size(28, 28);
+            this.tsb_Info.Size = new System.Drawing.Size(34, 28);
             this.tsb_Info.Text = "&Info";
             this.tsb_Info.Click += new System.EventHandler(this.tsb_Info_Click);
             // 
@@ -346,40 +349,41 @@
             this.lbl_Platzhalter,
             this.lbl_Zeile,
             this.lbl_Spalte});
-            this.ss_Statusleiste.Location = new System.Drawing.Point(0, 597);
+            this.ss_Statusleiste.Location = new System.Drawing.Point(0, 920);
             this.ss_Statusleiste.Name = "ss_Statusleiste";
-            this.ss_Statusleiste.Size = new System.Drawing.Size(653, 22);
+            this.ss_Statusleiste.Padding = new System.Windows.Forms.Padding(2, 0, 21, 0);
+            this.ss_Statusleiste.Size = new System.Drawing.Size(980, 32);
             this.ss_Statusleiste.TabIndex = 2;
             this.ss_Statusleiste.Text = "Statuszeile";
             // 
             // lbl_Anzahl_Zeichen
             // 
             this.lbl_Anzahl_Zeichen.Name = "lbl_Anzahl_Zeichen";
-            this.lbl_Anzahl_Zeichen.Size = new System.Drawing.Size(98, 17);
+            this.lbl_Anzahl_Zeichen.Size = new System.Drawing.Size(146, 25);
             this.lbl_Anzahl_Zeichen.Text = "Zeichenanzahl : 0";
             // 
             // lbl_Wörter
             // 
             this.lbl_Wörter.Name = "lbl_Wörter";
-            this.lbl_Wörter.Size = new System.Drawing.Size(58, 17);
+            this.lbl_Wörter.Size = new System.Drawing.Size(90, 25);
             this.lbl_Wörter.Text = "Wörter : 0";
             // 
             // lbl_Platzhalter
             // 
             this.lbl_Platzhalter.Name = "lbl_Platzhalter";
-            this.lbl_Platzhalter.Size = new System.Drawing.Size(381, 17);
+            this.lbl_Platzhalter.Size = new System.Drawing.Size(564, 25);
             this.lbl_Platzhalter.Spring = true;
             // 
             // lbl_Zeile
             // 
             this.lbl_Zeile.Name = "lbl_Zeile";
-            this.lbl_Zeile.Size = new System.Drawing.Size(47, 17);
+            this.lbl_Zeile.Size = new System.Drawing.Size(72, 25);
             this.lbl_Zeile.Text = "Zeile : 1";
             // 
             // lbl_Spalte
             // 
             this.lbl_Spalte.Name = "lbl_Spalte";
-            this.lbl_Spalte.Size = new System.Drawing.Size(54, 17);
+            this.lbl_Spalte.Size = new System.Drawing.Size(85, 25);
             this.lbl_Spalte.Text = "Spalte : 1";
             // 
             // tb_Editor
@@ -387,12 +391,12 @@
             this.tb_Editor.AcceptsTab = true;
             this.tb_Editor.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tb_Editor.HideSelection = false;
-            this.tb_Editor.Location = new System.Drawing.Point(0, 55);
+            this.tb_Editor.Location = new System.Drawing.Point(0, 66);
             this.tb_Editor.Margin = new System.Windows.Forms.Padding(0);
             this.tb_Editor.Multiline = true;
             this.tb_Editor.Name = "tb_Editor";
             this.tb_Editor.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.tb_Editor.Size = new System.Drawing.Size(653, 542);
+            this.tb_Editor.Size = new System.Drawing.Size(980, 854);
             this.tb_Editor.TabIndex = 3;
             this.tb_Editor.MouseClick += new System.Windows.Forms.MouseEventHandler(this.tb_Editor_MouseClick);
             this.tb_Editor.TextChanged += new System.EventHandler(this.tb_Editor_TextChanged);
@@ -428,11 +432,34 @@
             this.ppd_Druckvorschau.Name = "ppd_Druckvorschau";
             this.ppd_Druckvorschau.Visible = false;
             // 
+            // tsmi_Verschlüsselung
+            // 
+            this.tsmi_Verschlüsselung.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmi_Cäsarcode,
+            this.tsmi_Test});
+            this.tsmi_Verschlüsselung.Name = "tsmi_Verschlüsselung";
+            this.tsmi_Verschlüsselung.Size = new System.Drawing.Size(270, 34);
+            this.tsmi_Verschlüsselung.Text = "Verschlüsselung";
+            // 
+            // tsmi_Cäsarcode
+            // 
+            this.tsmi_Cäsarcode.Name = "tsmi_Cäsarcode";
+            this.tsmi_Cäsarcode.Size = new System.Drawing.Size(270, 34);
+            this.tsmi_Cäsarcode.Text = "Cäsarcode";
+            this.tsmi_Cäsarcode.Click += new System.EventHandler(this.cäsarcodeToolStripMenuItem_Click);
+            // 
+            // tsmi_Test
+            // 
+            this.tsmi_Test.Name = "tsmi_Test";
+            this.tsmi_Test.Size = new System.Drawing.Size(270, 34);
+            this.tsmi_Test.Text = "Test";
+            this.tsmi_Test.Click += new System.EventHandler(this.testToolStripMenuItem_Click);
+            // 
             // GUI
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(653, 619);
+            this.ClientSize = new System.Drawing.Size(980, 952);
             this.Controls.Add(this.tb_Editor);
             this.Controls.Add(this.ss_Statusleiste);
             this.Controls.Add(this.ts_Symbolleiste);
@@ -440,6 +467,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.MainMenuStrip = this.ts_Hauptmenü;
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "GUI";
             this.Text = "Texteditor.NET";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.GUI_FormClosing);
@@ -500,6 +528,9 @@
         private System.Windows.Forms.ToolStripMenuItem tsmi_Uhreit_Datum;
         private System.Windows.Forms.ToolStripMenuItem tsmi_Suchen;
         private System.Windows.Forms.ToolStripMenuItem tsmi_Ersetzen;
+        private System.Windows.Forms.ToolStripMenuItem tsmi_Verschlüsselung;
+        private System.Windows.Forms.ToolStripMenuItem tsmi_Cäsarcode;
+        private System.Windows.Forms.ToolStripMenuItem tsmi_Test;
     }
 }
 
