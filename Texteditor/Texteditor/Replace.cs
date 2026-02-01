@@ -4,7 +4,7 @@ namespace Texteditor
 {
     public partial class Replace : Form
     {
-        private readonly TextBox textBox;
+        public readonly TextBox textBox;
 
         public Replace(TextBox textbox)
         {
@@ -26,12 +26,14 @@ namespace Texteditor
 
         private void OnReplaceClick(object sender, EventArgs e)
         {
-            if (this.textBox.SelectionLength == 0)
+            if(string.Equals(string.Empty, this.tb_Search.Text))
             {
-                this.btn_Search.PerformClick();
+                MessageBox.Show("Bitte geben sie einen Suchtext ein", "Hinweis", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
+                this.btn_Search.PerformClick();
+
                 this.ReplaceText(this.tb_Replace.Text);
             }
         }
@@ -63,6 +65,10 @@ namespace Texteditor
         #endregion
 
         #region Helpers
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>True if a Match is found, else False</returns>
         private bool Search()
         {
             string source = this.textBox.Text;
@@ -94,24 +100,16 @@ namespace Texteditor
 
             return false;
         }
-        private void ReplaceText(string newText, bool placeCursorBehindText = false)
+
+        public void ReplaceText(string newText)
         {
             if (this.textBox.SelectionLength == 0)
-                throw new InvalidOperationException("No text to replace");
-
-            int selectionStart = this.textBox.SelectionStart;
+            {
+                return;
+            }
 
             this.textBox.SelectedText = newText;
-
-            if (placeCursorBehindText)
-            {
-                this.textBox.SelectionStart = selectionStart + newText.Length;
-                this.textBox.SelectionLength = 0;
-            }
         }
         #endregion
-
-
-
     }
 }

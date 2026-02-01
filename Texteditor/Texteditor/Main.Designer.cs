@@ -51,6 +51,8 @@
             this.tsmi_BackgroundColor = new ToolStripMenuItem();
             this.tsmi_FontColor = new ToolStripMenuItem();
             this.tsmi_ResetFormat = new ToolStripMenuItem();
+            this.tsmi_Encryption = new ToolStripMenuItem();
+            this.tsmi_Strategies = new ToolStripMenuItem();
             this.toolStripSeparator3 = new ToolStripSeparator();
             this.ts_ToolStrip = new ToolStrip();
             this.tsb_New = new ToolStripButton();
@@ -66,9 +68,9 @@
             this.tssl_CursorInfo = new ToolStripStatusLabel();
             this.tb_Editor = new TextBox();
             this.psd_PageSetup = new PageSetupDialog();
+            this.pd_PrintDocument = new System.Drawing.Printing.PrintDocument();
             this.pd_PrintDialog = new PrintDialog();
             this.ppd_PreviewDialog = new PrintPreviewDialog();
-            this.pd_PrintDocument = new System.Drawing.Printing.PrintDocument();
             this.fd_FontDialog = new FontDialog();
             this.cd_ColorDialog = new ColorDialog();
             this.ms_MenusStrip.SuspendLayout();
@@ -79,7 +81,7 @@
             // ms_MenusStrip
             // 
             resources.ApplyResources(this.ms_MenusStrip, "ms_MenusStrip");
-            this.ms_MenusStrip.Items.AddRange(new ToolStripItem[] { this.tsmi_File, this.tsmi_Edit, this.tsmi_Format });
+            this.ms_MenusStrip.Items.AddRange(new ToolStripItem[] { this.tsmi_File, this.tsmi_Edit, this.tsmi_Format, this.tsmi_Encryption });
             this.ms_MenusStrip.Name = "ms_MenusStrip";
             // 
             // tsmi_File
@@ -207,6 +209,17 @@
             this.tsmi_ResetFormat.Name = "tsmi_ResetFormat";
             this.tsmi_ResetFormat.Click += this.OnResetFormatClick;
             // 
+            // tsmi_Encryption
+            // 
+            resources.ApplyResources(this.tsmi_Encryption, "tsmi_Encryption");
+            this.tsmi_Encryption.DropDownItems.AddRange(new ToolStripItem[] { this.tsmi_Strategies });
+            this.tsmi_Encryption.Name = "tsmi_Encryption";
+            // 
+            // tsmi_Strategies
+            // 
+            resources.ApplyResources(this.tsmi_Strategies, "tsmi_Strategies");
+            this.tsmi_Strategies.Name = "tsmi_Strategies";
+            // 
             // toolStripSeparator3
             // 
             resources.ApplyResources(this.toolStripSeparator3, "toolStripSeparator3");
@@ -230,7 +243,7 @@
             // 
             resources.ApplyResources(this.tsb_Open, "tsb_Open");
             this.tsb_Open.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            this.tsb_Open.Image = Properties.Resources.folder__1_;
+            this.tsb_Open.Image = Properties.Resources.folder;
             this.tsb_Open.Name = "tsb_Open";
             this.tsb_Open.Click += this.OnOpenClick;
             // 
@@ -238,7 +251,7 @@
             // 
             resources.ApplyResources(this.tsb_Save, "tsb_Save");
             this.tsb_Save.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            this.tsb_Save.Image = Properties.Resources.diskette__1_;
+            this.tsb_Save.Image = Properties.Resources.diskette;
             this.tsb_Save.Name = "tsb_Save";
             this.tsb_Save.Click += this.OnSaveClick;
             // 
@@ -297,6 +310,7 @@
             resources.ApplyResources(this.tb_Editor, "tb_Editor");
             this.tb_Editor.HideSelection = false;
             this.tb_Editor.Name = "tb_Editor";
+            this.tb_Editor.MouseClick += this.OnEditorMouseClick;
             this.tb_Editor.TextChanged += this.OnEditorTextChanged;
             this.tb_Editor.KeyDown += this.OnEditorKeyDown;
             this.tb_Editor.KeyPress += this.OnEditorKeyPress;
@@ -305,6 +319,10 @@
             // psd_PageSetup
             // 
             this.psd_PageSetup.Document = this.pd_PrintDocument;
+            // 
+            // pd_PrintDocument
+            // 
+            this.pd_PrintDocument.PrintPage += this.PrintPage;
             // 
             // pd_PrintDialog
             // 
@@ -316,10 +334,6 @@
             resources.ApplyResources(this.ppd_PreviewDialog, "ppd_PreviewDialog");
             this.ppd_PreviewDialog.Document = this.pd_PrintDocument;
             this.ppd_PreviewDialog.Name = "ppd_PreviewDialog";
-            // 
-            // pd_PrintDocument
-            // 
-            this.pd_PrintDocument.PrintPage += this.PrintPage;
             // 
             // Main
             // 
@@ -393,5 +407,7 @@
         private ToolStripMenuItem tsmi_ResetFormat;
         private ToolStripSeparator toolStripSeparator6;
         private ToolStripMenuItem tsmi_PageSetup;
+        private ToolStripMenuItem tsmi_Encryption;
+        private ToolStripMenuItem tsmi_Strategies;
     }
 }

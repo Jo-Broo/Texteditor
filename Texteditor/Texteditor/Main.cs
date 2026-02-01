@@ -1,4 +1,7 @@
 using System.Drawing.Printing;
+using Texteditor.Encryptions;
+using Texteditor.Encryptions.GUIs;
+using Texteditor.Encryptions.Strategies;
 using Texteditor.Extensions;
 
 namespace Texteditor
@@ -8,26 +11,37 @@ namespace Texteditor
         private const string VERSION = "1.0.0";
         private bool _saved = true;
         private string _fileName = string.Empty;
-        private readonly Font standardFont;
-        private string Title => $"Texteditor .NET - {this._fileName}";
+        private readonly Font _standardFont;
+        private string GetTitle => $"Texteditor .NET - {this._fileName}";
 
         private string _printText = string.Empty;
         private int _pageCounter = 0;
         private int _currentCharIndex = 0;
 
-        private readonly Replace replace;
+        private readonly Replace _replace;
+
+        private readonly Encrypter _encrypter;
 
         public Main()
         {
             this.InitializeComponent();
-            this.Text = this.Title;
+            this.Text = this.GetTitle;
 
-            this.replace = new(this.tb_Editor);
+            this._replace = new(this.tb_Editor);
 
-            this.standardFont = this.tb_Editor.Font;
+            this._standardFont = this.tb_Editor.Font;
 
             this.UpdatePositionLabel();
             this.UpdateTextInfoLabel();
+
+            #region Encryper Setup
+            this._encrypter = new();
+            this._encrypter.Strategies = new()
+            {
+                new Tuple<Encryptions.Interfaces.IEncryptionStrategie, Form>(new CaesarStrategie(),new Caesar(this._replace,this._encrypter)),
+            };
+            this.SetupEncryptionStrategies();
+            #endregion
         }
 
         #region MenuItems
@@ -167,7 +181,7 @@ namespace Texteditor
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Printing failed with [{ex.Message}]", "Error", MessageBoxButtons.OK,MessageBoxIcon.Error);
+                MessageBox.Show($"Printing failed with [{ex.Message}]", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -186,8 +200,8 @@ namespace Texteditor
         {
             this.UpdateBounds();
 
-            this.replace.Location = CalculateLocation(this, this.replace);
-            this.replace.Show();
+            this._replace.Location = this.CalculateStartPosition(this._replace);
+            this._replace.Show();
         }
 
         private void OnWordWrapClick(object sender, EventArgs e)
@@ -232,7 +246,7 @@ namespace Texteditor
         {
             this.tb_Editor.BackColor = Color.White;
             this.tb_Editor.ForeColor = Color.Black;
-            this.tb_Editor.Font = this.standardFont;
+            this.tb_Editor.Font = this._standardFont;
         }
 
         private void OnPrintPreviewClick(object sender, EventArgs e)
@@ -255,7 +269,7 @@ namespace Texteditor
         {
             using (Info info = new(VERSION))
             {
-                info.Location = CalculateLocation(this, info);
+                info.Location = this.CalculateStartPosition(info);
                 info.ShowDialog();
             }
         }
@@ -347,6 +361,10 @@ namespace Texteditor
         {
             this.UpdatePositionLabel();
         }
+        private void OnEditorMouseClick(object sender, MouseEventArgs e)
+        {
+            this.UpdatePositionLabel();
+        }
         #endregion
 
         #region Helpers
@@ -363,7 +381,7 @@ namespace Texteditor
         }
         private void SetTitle()
         {
-            this.Text = this.Title;
+            this.Text = this.GetTitle;
         }
         private void UpdateTextInfoLabel()
         {
@@ -372,49 +390,104 @@ namespace Texteditor
             this.tssl_TextInfo.Text = $"Zeiche : {info.Item1} Wörter: {info.Item2}";
         }
         /// <summary>
-        /// Druckt genau eine Seite und berücksichtigt FromPage / ToPage korrekt.
+        /// I speficially honour D. Eismann from the EBZ for this Function.
+        /// Link: https://ebz-verbund.de
         /// </summary>
         private void PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
         {
-            int zeichenAufSeite;
-
-            var printerSettings = e.PageSettings.PrinterSettings;
-            bool usePageRange = printerSettings.PrintRange == PrintRange.SomePages;
-
-            int fromPage = usePageRange ? printerSettings.FromPage : 1;
-            int toPage = usePageRange ? printerSettings.ToPage : int.MaxValue;
-
-            e.Graphics.MeasureString(
-                this._printText,
-                this.tb_Editor.Font,
-                e.MarginBounds.Size,
-                StringFormat.GenericDefault,
-                out zeichenAufSeite,
-                out _
-            );
-
-            this._pageCounter++;
-
-            if (this._pageCounter >= fromPage && this._pageCounter <= toPage)
+            try
             {
-                e.Graphics.DrawString(
-                    this._printText.Substring(this._currentCharIndex, zeichenAufSeite),
-                    this.tb_Editor.Font,
-                    SystemBrushes.ControlText,
-                    e.MarginBounds
-                );
+                int iZeichenanzahl = 0;
+
+                int iFromPage = e.PageSettings.PrinterSettings.FromPage;
+                int iToPage = e.PageSettings.PrinterSettings.ToPage;
+
+                if (e.PageSettings.PrinterSettings.PrintRange == PrintRange.SomePages)
+                {
+                    if (this._pageCounter < iFromPage)
+                    {
+                        for (int i = 1; i < iFromPage; i++)
+                        {
+                            e.Graphics.MeasureString(
+                                this._printText, this.tb_Editor.Font, e.MarginBounds.Size,
+                                StringFormat.GenericDefault, out iZeichenanzahl, out _
+                            );
+
+                            this._printText = this._printText.Substring(iZeichenanzahl);
+
+                            this._pageCounter++;
+                        }
+                    }
+
+                    e.Graphics.DrawString(this._printText, this.tb_Editor.Font, new SolidBrush(this.tb_Editor.ForeColor), e.MarginBounds);
+
+                    e.Graphics.MeasureString(
+                        this._printText, this.tb_Editor.Font, e.MarginBounds.Size,
+                        StringFormat.GenericDefault, out iZeichenanzahl, out _
+                    );
+
+                    this._printText = this._printText.Substring(iZeichenanzahl);
+
+                    if (this._pageCounter < iToPage && this._printText.Length > 0)
+                        e.HasMorePages = true;
+
+                    this._pageCounter++;
+                }
+                else
+                {
+                    e.Graphics.DrawString(this._printText, this.tb_Editor.Font, new SolidBrush(this.tb_Editor.ForeColor), e.MarginBounds);
+
+                    e.Graphics.MeasureString(
+                        this._printText, this.tb_Editor.Font, e.MarginBounds.Size,
+                        StringFormat.GenericDefault, out iZeichenanzahl, out _
+                    );
+
+                    this._printText = this._printText.Substring(iZeichenanzahl);
+
+                    if (this._printText.Length > 0)
+                        e.HasMorePages = true;
+                }
+
+                this._pageCounter = 0;
             }
-
-            this._currentCharIndex += zeichenAufSeite;
-
-            e.HasMorePages =
-                this._currentCharIndex < this._printText.Length &&
-                this._pageCounter < toPage;
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Printpage failed with [{ex.Message}]", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                e.HasMorePages = false;
+            }
         }
-        private static Point CalculateLocation(Form parent, Form child)
+        private void SetupEncryptionStrategies()
         {
-            return new Point((parent.Location.X + (parent.Size.Width / 2)) - (child.Size.Width / 2), (parent.Location.Y + (parent.Size.Height / 2)) - (child.Size.Height / 2));
+            var strategies = this._encrypter.Strategies;
+
+            foreach (var strategy in strategies)
+            {
+                var item = new ToolStripMenuItem
+                {
+                    Text = strategy.Item1.GetDisplayName(),
+                    Tag = strategy.Item1,
+                    CheckOnClick = false
+                };
+
+                item.Click += (_, _) =>
+                {
+                    this._encrypter.SetStrategy(strategy.Item1);
+
+                    foreach (ToolStripMenuItem menuItem in this.tsmi_Strategies.DropDownItems)
+                    {
+                        menuItem.Checked = ReferenceEquals(menuItem.Tag, strategy);
+                    }
+
+                    strategy.Item2.Location = this.CalculateStartPosition(strategy.Item2);
+
+                    strategy.Item2.Show();
+                };
+
+                this.tsmi_Strategies.DropDownItems.Add(item);
+            }
         }
         #endregion
+
+        
     }
 }

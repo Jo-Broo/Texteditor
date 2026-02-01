@@ -166,6 +166,15 @@
   <data name="tsmi_ResetFormat.Text" xml:space="preserve">
     <value>Reset to &amp;Default</value>
   </data>
+  <data name="tsmi_Strategies.Size" type="System.Drawing.Size, System.Drawing">
+    <value>127, 22</value>
+  </data>
+  <data name="tsmi_Strategies.Text" xml:space="preserve">
+    <value>&amp;Strategien</value>
+  </data>
+  <data name="tsmi_Encryption.Text" xml:space="preserve">
+    <value>&amp;Encryption</value>
+  </data>
   <data name="ms_MenusStrip.Size" type="System.Drawing.Size, System.Drawing">
     <value>748, 24</value>
   </data>

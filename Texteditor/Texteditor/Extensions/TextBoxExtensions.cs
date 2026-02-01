@@ -4,6 +4,9 @@ namespace Texteditor.Extensions
 {
     public static partial class TextBoxExtensions
     {
+        [GeneratedRegex(@"[\w-]+")]
+        private static partial Regex regex();
+
         static Regex SplitWords = regex();
 
         /// <summary>
@@ -17,8 +20,5 @@ namespace Texteditor.Extensions
 
             return new Tuple<int, int>(text.Length,SplitWords.Split(text).Length);
         }
-
-        [GeneratedRegex(@"[\w-]+")]
-        private static partial Regex regex();
     }
 }
